@@ -9,23 +9,23 @@ use StringEncoder\Proxy\Encoder;
 
 class EncoderMountFromEncodingTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         Encoder::mountFromEncoding('ISO-8859-1', 'UTF-8');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Encoder::unload();
     }
 
-    public function testConvert()
+    public function test_convert()
     {
         $string = Encoder::convert()->fromString('my string')->toString();
         $this->assertEquals('my string', $string);
     }
 
-    public function testGetMountedEncoder()
+    public function test_get_mounted_encoder()
     {
         $encoder = Encoder::getMountedEncoder();
         $this->assertTrue($encoder instanceof \StringEncoder\Encoder);

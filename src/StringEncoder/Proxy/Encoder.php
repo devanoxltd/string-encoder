@@ -16,14 +16,14 @@ final class Encoder implements ProxyEncoderInterface
     /**
      * @var EncoderImplementation
      */
-    private static $encoder = null;
+    private static $encoder;
 
     /**
      * @throws InvalidEncodingException
      */
     public static function mountFromEncoding(string $targetEncoding, ?string $sourceEncoding = null): void
     {
-        $encoder = new EncoderImplementation();
+        $encoder = new EncoderImplementation;
         $encoder->setTargetEncoding($targetEncoding);
         if ($sourceEncoding !== null) {
             $encoder->setSourceEncoding($sourceEncoding);
@@ -37,8 +37,8 @@ final class Encoder implements ProxyEncoderInterface
      */
     public static function mount(string $className = 'Encoder', ?EncoderImplementation $encoder = null): bool
     {
-        if (!\class_exists($className)) {
-            \class_alias(__CLASS__, $className);
+        if (! class_exists($className)) {
+            class_alias(__CLASS__, $className);
         }
         if ($encoder instanceof EncoderImplementation) {
             self::$encoder = $encoder;

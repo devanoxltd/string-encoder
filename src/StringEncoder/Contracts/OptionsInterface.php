@@ -8,15 +8,15 @@ use StringEncoder\Contracts\DTO\EncodingDTOInterface;
 
 interface OptionsInterface
 {
-    public function setDefaultTargetEncoding(string $defaultTargetEncoding): OptionsInterface;
+    public function setDefaultTargetEncoding(string $defaultTargetEncoding): self;
 
     public function getDefaultTargetEncoding(): EncodingDTOInterface;
 
-    public function setRemoveUTF8BOM(bool $remove): OptionsInterface;
+    public function setRemoveUTF8BOM(bool $remove): self;
 
     public function isRemoveUTF8BOM(): bool;
 
-    public function setCaseSensitiveEncoding(bool $caseSensitive): OptionsInterface;
+    public function setCaseSensitiveEncoding(bool $caseSensitive): self;
 
     public function isCaseSensitiveEncoding(): bool;
 }

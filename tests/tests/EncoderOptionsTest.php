@@ -12,25 +12,25 @@ class EncoderOptionsTest extends TestCase
 {
     private $encoder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->encoder = new Encoder();
+        $this->encoder = new Encoder;
     }
 
-    public function testSetSource()
+    public function test_set_source()
     {
         $this->encoder->setOptions(
-            (new Options())
+            (new Options)
                 ->setCaseSensitiveEncoding(false)
         );
         $this->encoder->setSourceEncoding('iso-8859-1');
         $this->assertEquals('ISO-8859-1', $this->encoder->getSourceEncoding());
     }
 
-    public function testSetTarget()
+    public function test_set_target()
     {
         $this->encoder->setOptions(
-            (new Options())
+            (new Options)
                 ->setCaseSensitiveEncoding(false)
         );
         $this->encoder->setTargetEncoding('iso-8859-1');

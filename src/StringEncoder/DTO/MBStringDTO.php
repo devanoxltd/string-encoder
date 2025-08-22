@@ -36,8 +36,8 @@ final class MBStringDTO implements MBStringDTOInterface
         string $string,
         OptionsInterface $options,
         ?EncodingDTOInterface $encodingDTO = null,
-        ?Validator $validator = null)
-    {
+        ?Validator $validator = null
+    ) {
         if ($validator === null) {
             $validator = ValidatorDiscovery::find();
         }
@@ -45,7 +45,7 @@ final class MBStringDTO implements MBStringDTOInterface
             $encodingDTO = $options->getDefaultTargetEncoding();
         }
 
-        if (!$validator->validateString($string, $encodingDTO)) {
+        if (! $validator->validateString($string, $encodingDTO)) {
             throw new InvalidEncodingException('String "' . $string . '" is not the current encoding of "' . $encodingDTO->getEncoding() . '".');
         }
 
@@ -65,7 +65,7 @@ final class MBStringDTO implements MBStringDTOInterface
         ?EncodingDTOInterface $encodingDTO = null,
         ?Validator $validator = null
     ): MBStringDTOInterface {
-        return new MBStringDTO($string, $options, $encodingDTO, $validator);
+        return new self($string, $options, $encodingDTO, $validator);
     }
 
     /**
@@ -75,7 +75,7 @@ final class MBStringDTO implements MBStringDTOInterface
      */
     public static function makeFromDTO(string $string, MBStringDTOInterface $MBStringDTO): MBStringDTOInterface
     {
-        return new MBStringDTO($string, $MBStringDTO->getOptions(), $MBStringDTO->getEncodingDTO());
+        return new self($string, $MBStringDTO->getOptions(), $MBStringDTO->getEncodingDTO());
     }
 
     public function getString(): string

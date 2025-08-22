@@ -21,13 +21,14 @@ class Validator
      */
     public function determineEncoding(string $encoding, bool $caseSensitive): ?string
     {
-        $encodingList = \mb_list_encodings();
+        $encodingList = mb_list_encodings();
 
         foreach ($encodingList as $validEncoding) {
             if ($validEncoding === $encoding || (
-                    $caseSensitive === false &&
-                    \mb_convert_case($validEncoding, MB_CASE_LOWER) === \mb_convert_case($encoding, MB_CASE_LOWER))
-                ) {
+                $caseSensitive === false &&
+                mb_convert_case($validEncoding, MB_CASE_LOWER) === mb_convert_case($encoding, MB_CASE_LOWER)
+            )
+            ) {
                 return $validEncoding;
             }
             if ($this->validateEncodingAlias($encoding, $validEncoding, $caseSensitive)) {
@@ -41,9 +42,16 @@ class Validator
 
     public function validateString(string $string, EncodingDTOInterface $encodingDTO): bool
     {
-        $encoding = \mb_detect_encoding($string, [$encodingDTO->getEncoding()]);
+        $expectedEncoding = $encodingDTO->getEncoding();
+        $encoding = mb_detect_encoding($string, [$expectedEncoding]);
+        if ($expectedEncoding === 'ASCII') {
+            // Check for any non-ASCII character
+            if (preg_match('/[^\x00-\x7F]/', $string)) {
+                return false;
+            }
+        }
 
-        return $encoding === $encodingDTO->getEncoding();
+        return $encoding === $expectedEncoding;
     }
 
     /**
@@ -52,27 +60,26 @@ class Validator
     private function validateEncodingAlias(string $encoding, string $validEncoding, bool $caseSensitive): bool
     {
         if ($caseSensitive) {
-            $aliasEncoding = \mb_encoding_aliases($validEncoding);
+            $aliasEncoding = mb_encoding_aliases($validEncoding);
         } else {
-            $encoding = \mb_convert_case($encoding, MB_CASE_LOWER);
-            $aliasEncoding = $this->lowerCaseArray(\mb_encoding_aliases($validEncoding));
+            $encoding = mb_convert_case($encoding, MB_CASE_LOWER);
+            $aliasEncoding = $this->lowerCaseArray(mb_encoding_aliases($validEncoding));
         }
 
-        return \in_array($encoding, $aliasEncoding);
+        return in_array($encoding, $aliasEncoding);
     }
 
     /**
      * @internal
      *
-     * @param string[] $encodings
-     *
+     * @param  string[]  $encodings
      * @return string[]
      */
     private function lowerCaseArray(array $encodings): array
     {
         $newEncodings = [];
         foreach ($encodings as $key => $encoding) {
-            $newEncodings[$key] = \mb_convert_case($encoding, MB_CASE_LOWER);
+            $newEncodings[$key] = mb_convert_case($encoding, MB_CASE_LOWER);
         }
 
         return $newEncodings;

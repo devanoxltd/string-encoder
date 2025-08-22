@@ -6,7 +6,7 @@ namespace StringEncoder\Contracts;
 
 interface EncoderInterface
 {
-    public function setOptions(OptionsInterface $options): EncoderInterface;
+    public function setOptions(OptionsInterface $options): self;
 
     public function getTargetEncoding(): ?string;
 

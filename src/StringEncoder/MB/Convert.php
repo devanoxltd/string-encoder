@@ -16,7 +16,7 @@ use StringEncoder\Exceptions\InvalidEncodingException;
 use StringEncoder\MB\UTF8\Bom;
 use StringEncoder\Options;
 
-class Convert implements ConvertWriteInterface, ConvertReadInterface
+class Convert implements ConvertReadInterface, ConvertWriteInterface
 {
     /**
      * @var ?EncodingDTOInterface
@@ -44,10 +44,10 @@ class Convert implements ConvertWriteInterface, ConvertReadInterface
     public function __construct(
         ?EncodingDTOInterface $sourceEncoding = null,
         ?EncodingDTOInterface $targetEncoding = null,
-        ?OptionsInterface $options = null)
-    {
+        ?OptionsInterface $options = null
+    ) {
         if ($options === null) {
-            $options = new Options();
+            $options = new Options;
         }
         $this->options = $options;
 
@@ -88,7 +88,7 @@ class Convert implements ConvertWriteInterface, ConvertReadInterface
      */
     public function fromFile(string $filePath): ConvertWriteInterface
     {
-        $content = @\file_get_contents($filePath);
+        $content = @file_get_contents($filePath);
         if ($content === false) {
             throw new ContentsFailedException('file_get_contents failed and returned false when trying to read "' . $filePath . '".');
         }
@@ -109,7 +109,7 @@ class Convert implements ConvertWriteInterface, ConvertReadInterface
         }
 
         $string = $this->mbStringDTO->getString();
-        $status = @\file_put_contents($filePath, $string);
+        $status = @file_put_contents($filePath, $string);
         if ($status === false) {
             throw new ContentsFailedException('file_put_contents failed and returned false when trying to write "' . $filePath . '".');
         }
@@ -133,16 +133,16 @@ class Convert implements ConvertWriteInterface, ConvertReadInterface
     private function convert(string $value): void
     {
         if ($this->sourceEncoding === null) {
-            $value = \mb_convert_encoding($value, $this->targetEncoding->getEncoding());
+            $value = mb_convert_encoding($value, $this->targetEncoding->getEncoding());
         } elseif ($this->sourceEncoding->getEncoding() !== $this->targetEncoding->getEncoding()) {
-            $value = \mb_convert_encoding($value, $this->targetEncoding->getEncoding(), $this->sourceEncoding->getEncoding());
+            $value = mb_convert_encoding($value, $this->targetEncoding->getEncoding(), $this->sourceEncoding->getEncoding());
         }
 
         $this->mbStringDTO = MBStringDTO::makeFromString($value, $this->options, $this->targetEncoding);
 
         if ($this->options->isRemoveUTF8BOM() &&
             $this->targetEncoding->getEncoding() === 'UTF-8') {
-            $bom = new Bom();
+            $bom = new Bom;
             $this->mbStringDTO = $bom->removeBOM($this->mbStringDTO);
         }
     }

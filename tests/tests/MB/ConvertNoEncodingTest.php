@@ -14,12 +14,12 @@ class ConvertNoEncodingTest extends TestCase
      */
     private $convert;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->convert = new Convert();
+        $this->convert = new Convert;
     }
 
-    public function testToString()
+    public function test_to_string()
     {
         $string = $this->convert->fromString('my string')->toString();
         $this->assertEquals('my string', $string);

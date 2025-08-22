@@ -19,11 +19,11 @@ class Bom
     {
         $value = $MBStringDTO->getString();
         // remove utf-8 BOM
-        if (\substr($value, 0, 3) == "\xef\xbb\xbf") {
-            $value = \substr($value, 3);
+        if (substr($value, 0, 3) == "\xef\xbb\xbf") {
+            $value = substr($value, 3);
         }
-        if (\substr($value, -3, 3) == "\xef\xbb\xbf") {
-            $value = \substr($value, 0, -3);
+        if (substr($value, -3, 3) == "\xef\xbb\xbf") {
+            $value = substr($value, 0, -3);
         }
 
         return MBStringDTO::makeFromDTO($value, $MBStringDTO);

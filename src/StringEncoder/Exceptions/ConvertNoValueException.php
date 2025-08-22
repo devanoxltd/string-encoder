@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace StringEncoder\Exceptions;
 
-class ConvertNoValueException extends \Exception
-{
-}
+use Exception;
+
+class ConvertNoValueException extends Exception {}

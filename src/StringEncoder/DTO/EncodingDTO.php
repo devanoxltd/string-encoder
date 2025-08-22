@@ -23,19 +23,19 @@ final class EncodingDTO implements EncodingDTOInterface
      *
      * @throws InvalidEncodingException
      */
-    private function __construct(string $encoding, ?Validator $validator = null, OptionsInterface $options = null)
+    private function __construct(string $encoding, ?Validator $validator = null, ?OptionsInterface $options = null)
     {
         if ($validator === null) {
             $validator = ValidatorDiscovery::find();
         }
         if ($options === null) {
-            $options = new Options();
+            $options = new Options;
         }
 
-        if (!$validator->validateEncoding($encoding, $options->isCaseSensitiveEncoding())) {
+        if (! $validator->validateEncoding($encoding, $options->isCaseSensitiveEncoding())) {
             throw new InvalidEncodingException('Encoding "' . $encoding . '" is not supported by this system.');
         }
-        if (!$options->isCaseSensitiveEncoding()) {
+        if (! $options->isCaseSensitiveEncoding()) {
             // we need to potential fix the encoding string provided with the correct case.
             $encoding = $validator->determineEncoding($encoding, $options->isCaseSensitiveEncoding());
         }
@@ -48,9 +48,9 @@ final class EncodingDTO implements EncodingDTOInterface
      *
      * @internal
      */
-    public static function makeFromString(string $encoding, ?Validator $validator = null, OptionsInterface $options = null): EncodingDTO
+    public static function makeFromString(string $encoding, ?Validator $validator = null, ?OptionsInterface $options = null): self
     {
-        return new EncodingDTO($encoding, $validator, $options);
+        return new self($encoding, $validator, $options);
     }
 
     public function getEncoding(): string

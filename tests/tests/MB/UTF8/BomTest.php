@@ -16,27 +16,27 @@ class BomTest extends TestCase
      */
     private $bom;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->bom = new Bom();
+        $this->bom = new Bom;
     }
 
-    public function testRemoveBom()
+    public function test_remove_bom()
     {
         $this->assertEquals(
             'this is a string',
             $this->bom->removeBOM(
-                MBStringDTO::makeFromString("\xef\xbb\xbfthis is a string", new Options())
+                MBStringDTO::makeFromString("\xef\xbb\xbfthis is a string", new Options)
             )->getString()
         );
     }
 
-    public function testRemoveBomFromEndOfString()
+    public function test_remove_bom_from_end_of_string()
     {
         $this->assertEquals(
             'this is a string',
             $this->bom->removeBOM(
-                MBStringDTO::makeFromString("this is a string\xef\xbb\xbf", new Options())
+                MBStringDTO::makeFromString("this is a string\xef\xbb\xbf", new Options)
             )->getString()
         );
     }

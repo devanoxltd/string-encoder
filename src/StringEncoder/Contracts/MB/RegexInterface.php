@@ -20,8 +20,8 @@ interface RegexInterface
     ): MBStringDTOInterface;
 
     /**
-     * @param string[] $patterns
-     * @param string[] $replaces
+     * @param  string[]  $patterns
+     * @param  string[]  $replaces
      */
     public function replaceMultiple(
         array $patterns,

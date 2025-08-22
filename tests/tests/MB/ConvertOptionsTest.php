@@ -20,9 +20,9 @@ class ConvertOptionsTest extends TestCase
      */
     private $options;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->options = new Options();
+        $this->options = new Options;
         $this->convert = new Convert(
             EncodingDTO::makeFromString('ISO-8859-1'),
             EncodingDTO::makeFromString('UTF-8'),
@@ -30,7 +30,7 @@ class ConvertOptionsTest extends TestCase
         );
     }
 
-    public function testRemoveBom()
+    public function test_remove_bom()
     {
         $string = $this->convert->fromString('my string')->toString();
         $this->assertEquals('my string', $string);

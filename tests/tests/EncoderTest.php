@@ -11,24 +11,24 @@ class EncoderTest extends TestCase
 {
     private $encoder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->encoder = new Encoder();
+        $this->encoder = new Encoder;
     }
 
-    public function testSetSource()
+    public function test_set_source()
     {
         $this->encoder->setSourceEncoding('ISO-8859-1');
         $this->assertEquals('ISO-8859-1', $this->encoder->getSourceEncoding());
     }
 
-    public function testSetTarget()
+    public function test_set_target()
     {
         $this->encoder->setTargetEncoding('ISO-8859-1');
         $this->assertEquals('ISO-8859-1', $this->encoder->getTargetEncoding());
     }
 
-    public function testConvert()
+    public function test_convert()
     {
         $this->encoder->setSourceEncoding('ISO-8859-1');
         $this->encoder->setTargetEncoding('UTF-8');
@@ -36,7 +36,7 @@ class EncoderTest extends TestCase
         $this->assertEquals('my string', $string);
     }
 
-    public function testGetSourceWithoutSetting()
+    public function test_get_source_without_setting()
     {
         $this->assertNull($this->encoder->getSourceEncoding());
     }

@@ -19,29 +19,29 @@ class MBStringDTOTest extends TestCase
      */
     private $mbStringDTO;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->mbStringDTO = MBStringDTO::makeFromString('test string', new Options());
+        $this->mbStringDTO = MBStringDTO::makeFromString('test string', new Options);
     }
 
-    public function testMakeFromString()
+    public function test_make_from_string()
     {
         $this->assertEquals('test string', $this->mbStringDTO->getString());
     }
 
-    public function testGetOptions()
+    public function test_get_options()
     {
         $this->assertTrue($this->mbStringDTO->getOptions() instanceof OptionsInterface);
     }
 
-    public function testGetEncodingDTO()
+    public function test_get_encoding_dto()
     {
         $this->assertTrue($this->mbStringDTO->getEncodingDTO() instanceof EncodingDTOInterface);
     }
 
-    public function testWrongEncoding()
+    public function test_wrong_encoding()
     {
         $this->expectException(InvalidEncodingException::class);
-        MBStringDTO::makeFromString('ひらがな', new Options(), EncodingDTO::makeFromString('ASCII'));
+        MBStringDTO::makeFromString('ひらがな', new Options, EncodingDTO::makeFromString('ASCII'));
     }
 }

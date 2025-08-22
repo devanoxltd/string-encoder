@@ -18,12 +18,12 @@ class Regex implements RegexInterface
     public function setEncoding(string $encoding): void
     {
         $encodingDTO = EncodingDTO::makeFromString($encoding);
-        \mb_regex_encoding($encodingDTO->getEncoding());
+        mb_regex_encoding($encodingDTO->getEncoding());
     }
 
     public function getEncoding(): string
     {
-        return \mb_regex_encoding();
+        return mb_regex_encoding();
     }
 
     /**
@@ -36,17 +36,17 @@ class Regex implements RegexInterface
         bool $ignoreCase = false
     ): MBStringDTOInterface {
         if ($ignoreCase) {
-            $value = \mb_eregi_replace($pattern, $replace, $MBStringDTO->getString());
+            $value = mb_eregi_replace($pattern, $replace, $MBStringDTO->getString());
         } else {
-            $value = \mb_ereg_replace($pattern, $replace, $MBStringDTO->getString());
+            $value = mb_ereg_replace($pattern, $replace, $MBStringDTO->getString());
         }
 
         return MBStringDTO::makeFromDTO($value, $MBStringDTO);
     }
 
     /**
-     * @param string[] $patterns
-     * @param string[] $replaces
+     * @param  string[]  $patterns
+     * @param  string[]  $replaces
      *
      * @throws InvalidEncodingException
      */

@@ -16,33 +16,33 @@ class RegexTest extends TestCase
      */
     private $regex;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->regex = new Regex();
+        $this->regex = new Regex;
     }
 
-    public function testReplace()
+    public function test_replace()
     {
         $MBStringDTO = $this->regex->replace('[^A-Za-z0-9\.\-]', '',
             MBStringDTO::makeFromString(
                 'my string!',
-                new Options()
+                new Options
             )
         );
         $this->assertEquals('mystring', $MBStringDTO->getString());
     }
 
-    public function testReplaceIgnoreCase()
+    public function test_replace_ignore_case()
     {
         $MBStringDTO = $this->regex->replace('[^a-z0-9\.\-]', '',
             MBStringDTO::makeFromString(
                 'My string!',
-                new Options()
+                new Options
             ), true);
         $this->assertEquals('Mystring', $MBStringDTO->getString());
     }
 
-    public function testReplaceMultiple()
+    public function test_replace_multiple()
     {
         $MBStringDTO = $this->regex->replaceMultiple([
             '[^A-Za-z0-9\.\-]',
@@ -53,13 +53,13 @@ class RegexTest extends TestCase
         ],
             MBStringDTO::makeFromString(
                 'My string!',
-                new Options()
+                new Options
             )
         );
         $this->assertEquals('MTTTTTTT', $MBStringDTO->getString());
     }
 
-    public function testSetEncoding()
+    public function test_set_encoding()
     {
         $this->regex->setEncoding('ASCII');
         $this->assertEquals('ASCII', $this->regex->getEncoding());

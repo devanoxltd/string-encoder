@@ -12,12 +12,12 @@ final class ValidatorDiscovery implements ValidatorDiscoveryInterface
     /**
      * @var Validator|null
      */
-    private static $validator = null;
+    private static $validator;
 
     public static function find(): Validator
     {
         if (self::$validator === null) {
-            self::$validator = new Validator();
+            self::$validator = new Validator;
         }
 
         return self::$validator;

@@ -16,7 +16,7 @@ class ConvertTest extends TestCase
      */
     private $convert;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->convert = new Convert(
             EncodingDTO::makeFromString('ISO-8859-1'),
@@ -24,25 +24,25 @@ class ConvertTest extends TestCase
         );
     }
 
-    public function testToString()
+    public function test_to_string()
     {
         $string = $this->convert->fromString('my string')->toString();
         $this->assertEquals('my string', $string);
     }
 
-    public function testToDTO()
+    public function test_to_dto()
     {
         $dto = $this->convert->fromString('my string')->toDTO();
         $this->assertEquals('my string', $dto->getString());
     }
 
-    public function testToStringWithoutFrom()
+    public function test_to_string_without_from()
     {
         $this->expectException(ConvertNoValueException::class);
         $this->convert->toString();
     }
 
-    public function testToDTOWithoutFrom()
+    public function test_to_dto_without_from()
     {
         $this->expectException(ConvertNoValueException::class);
         $this->convert->toDTO();

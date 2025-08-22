@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace StringEncoder\Exceptions;
 
-class InvalidEncodingException extends \Exception
-{
-}
+use Exception;
+
+class InvalidEncodingException extends Exception {}
