@@ -7,42 +7,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 2.1.1
-- Fixed issue with options not propagating properly.
-
-## 2.1.0
-
-### Added
-- Added the option to write conversions to files.
-- Added the option to load conversions from files.
-- Added case-sensitive option for encoding validation.
-
-### Changed
-- Updated development packages,
-
-## 2.0.1
-
-### Added
-- Added docs directory with additional documentation.
-
-## 2.0.0
-
-### Added
-- Added support for PSR-4 autoloading.
-- Added ability to validate encoding.
-- Added SECURITY.md policy.
-- Added static analysis tools.
-- Added FUNDING.yml policy.
-- Added proxy support for static calls to encoder.
-- Added contracts to all public methods that are not internal.
-- Added an option to control the default encoding.
-- Added an option to remove the UTF-8 BOM.
-- Added support for mb regex.
-
-### Changed
-- Removed support for PHP < 7.2.
-- Updated dependencies.
-- Added changelog.
-
-### Removed
-- Removed the `Encode` object.
+## 1.0.0
+- Initial release. After change of paquettg/string-encoder
