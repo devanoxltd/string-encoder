@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace StringEncoder\MB;
 
 use StringEncoder\Contracts\DTO\EncodingDTOInterface;
+use Throwable;
 
 class Validator
 {
@@ -24,11 +25,28 @@ class Validator
         $encodingList = mb_list_encodings();
         $inputEncoding = $caseSensitive ? $encoding : mb_convert_case($encoding, MB_CASE_LOWER);
 
+        // First, check direct encoding matches
         foreach ($encodingList as $validEncoding) {
             $compareEncoding = $caseSensitive ? $validEncoding : mb_convert_case($validEncoding, MB_CASE_LOWER);
 
             if ($compareEncoding === $inputEncoding) {
                 return $validEncoding;
+            }
+        }
+
+        // If no direct match, check encoding aliases
+        foreach ($encodingList as $validEncoding) {
+            try {
+                $aliases = mb_encoding_aliases($validEncoding);
+            } catch (Throwable $th) {
+                $aliases = [];
+            }
+
+            foreach ($aliases as $alias) {
+                $compareAlias = $caseSensitive ? $alias : mb_convert_case($alias, MB_CASE_LOWER);
+                if ($compareAlias === $inputEncoding) {
+                    return $validEncoding;
+                }
             }
         }
 

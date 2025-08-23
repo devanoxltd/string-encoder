@@ -7,5 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 1.1.0
+- Refactored encoding validation logic for improved readability and maintainability.
+- Removed unnecessary private methods and streamlined encoding alias validation.
+
 ## 1.0.0
 - Initial release. After change of paquettg/string-encoder
