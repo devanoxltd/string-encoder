@@ -34,7 +34,7 @@ class ValidatorTest extends TestCase
         $this->assertFalse($this->validator->validateEncoding('NOTANENCODING', true));
     }
 
-    public function test_validate_encoding_invali_case()
+    public function test_validate_encoding_invalid_case()
     {
         $this->assertFalse($this->validator->validateEncoding('utf-8', true));
     }
